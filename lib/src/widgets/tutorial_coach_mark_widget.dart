@@ -81,7 +81,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
     return Material(
       type: MaterialType.transparency,
       child: GestureDetector(
-        onTap: widget.onClickSkip,
+        onTap: skip,
         child: Stack(
           children: <Widget>[
             AnimatedFocusLight(
