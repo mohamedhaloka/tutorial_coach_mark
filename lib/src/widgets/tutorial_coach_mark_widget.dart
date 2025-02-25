@@ -80,53 +80,56 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
   Widget build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
-      child: Stack(
-        children: <Widget>[
-          AnimatedFocusLight(
-            key: _focusLightKey,
-            initialFocus: widget.initialFocus,
-            targets: widget.targets,
-            finish: widget.finish,
-            paddingFocus: widget.paddingFocus,
-            colorShadow: widget.colorShadow,
-            opacityShadow: widget.opacityShadow,
-            focusAnimationDuration: widget.focusAnimationDuration,
-            unFocusAnimationDuration: widget.unFocusAnimationDuration,
-            pulseAnimationDuration: widget.pulseAnimationDuration,
-            pulseVariation: widget.pulseVariation,
-            pulseEnable: widget.pulseEnable,
-            rootOverlay: widget.rootOverlay,
-            imageFilter: widget.imageFilter,
-            backgroundSemanticLabel: widget.backgroundSemanticLabel,
-            clickTarget: (target) {
-              return widget.clickTarget?.call(target);
-            },
-            clickTargetWithTapPosition: (target, tapDetails) {
-              return widget.onClickTargetWithTapPosition
-                  ?.call(target, tapDetails);
-            },
-            clickOverlay: (target) {
-              return widget.clickOverlay?.call(target);
-            },
-            focus: (target) {
-              setState(() {
-                currentTarget = target;
-                showContent = true;
-              });
-            },
-            removeFocus: () {
-              setState(() {
-                showContent = false;
-              });
-            },
-          ),
-          AnimatedOpacity(
-            opacity: showContent ? 1 : 0,
-            duration: const Duration(milliseconds: 300),
-            child: _buildContents(),
-          ),
-          _buildSkip()
-        ],
+      child: GestureDetector(
+        onTap: widget.onClickSkip,
+        child: Stack(
+          children: <Widget>[
+            AnimatedFocusLight(
+              key: _focusLightKey,
+              initialFocus: widget.initialFocus,
+              targets: widget.targets,
+              finish: widget.finish,
+              paddingFocus: widget.paddingFocus,
+              colorShadow: widget.colorShadow,
+              opacityShadow: widget.opacityShadow,
+              focusAnimationDuration: widget.focusAnimationDuration,
+              unFocusAnimationDuration: widget.unFocusAnimationDuration,
+              pulseAnimationDuration: widget.pulseAnimationDuration,
+              pulseVariation: widget.pulseVariation,
+              pulseEnable: widget.pulseEnable,
+              rootOverlay: widget.rootOverlay,
+              imageFilter: widget.imageFilter,
+              backgroundSemanticLabel: widget.backgroundSemanticLabel,
+              clickTarget: (target) {
+                return widget.clickTarget?.call(target);
+              },
+              clickTargetWithTapPosition: (target, tapDetails) {
+                return widget.onClickTargetWithTapPosition
+                    ?.call(target, tapDetails);
+              },
+              clickOverlay: (target) {
+                return widget.clickOverlay?.call(target);
+              },
+              focus: (target) {
+                setState(() {
+                  currentTarget = target;
+                  showContent = true;
+                });
+              },
+              removeFocus: () {
+                setState(() {
+                  showContent = false;
+                });
+              },
+            ),
+            AnimatedOpacity(
+              opacity: showContent ? 1 : 0,
+              duration: const Duration(milliseconds: 300),
+              child: _buildContents(),
+            ),
+            _buildSkip()
+          ],
+        ),
       ),
     );
   }
